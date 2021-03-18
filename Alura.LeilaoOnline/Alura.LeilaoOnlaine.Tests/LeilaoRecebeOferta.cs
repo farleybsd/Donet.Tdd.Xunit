@@ -16,6 +16,7 @@ namespace Alura.LeilaoOnlaine.Tests
             //Arranjo - cenário de entrada
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulano", leilao);
+            leilao.IniciaPregao();
             leilao.RecebeLance(fulano, 800);
             leilao.RecebeLance(fulano, 900);
             leilao.TerminaPregao();
@@ -40,6 +41,7 @@ namespace Alura.LeilaoOnlaine.Tests
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulano", leilao);
 
+            leilao.IniciaPregao();
             foreach (var valor in ofertas)
             {
                 leilao.RecebeLance(fulano, valor);

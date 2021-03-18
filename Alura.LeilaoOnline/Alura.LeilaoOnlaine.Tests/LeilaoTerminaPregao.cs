@@ -15,7 +15,8 @@ namespace Alura.LeilaoOnlaine.Tests
             //Arranjo - cenário de entrada
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulano", leilao);
-            
+
+            leilao.IniciaPregao();
 
             foreach (var valor in ofertas)
             {
