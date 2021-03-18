@@ -3,14 +3,14 @@ using Xunit;
 
 namespace Alura.LeilaoOnlaine.Tests
 {
-   public class LeilaoTestes
+   public class LeilaoTerminaPregao
     {
-
+        //NomedoMetodo.CenarioPassado.RespostaEsperada
         [Theory] //Teoria teste que sao verdades para um tipo particular de dado
         [InlineData(1200, new double[] { 800, 900, 1000, 1200 })] // Passando Dado
         [InlineData(1000, new double[] { 800, 900, 1000, 990 })] // Passando Dado
         [InlineData(800, new double[] { 800})] // Passando Dados
-        public  void LeilaoComVariosLances(double valoresperado,double[] ofertas)
+        public  void RetornaMaiorValorDadoLeilaoComPeloMenosUmLance(double valoresperado,double[] ofertas)
         {
             //Arranjo - cenário de entrada
             var leilao = new Leilao("Van Gogh");
@@ -34,7 +34,7 @@ namespace Alura.LeilaoOnlaine.Tests
         }
 
         [Fact] // Fato sao sempre teste verdades que testa condiçoes e variantes
-        public void LeilaoSemLance()
+        public void RetornaZeroDadoLeilaoSemLance()
         {
 
             //Arranjo - cenário de entrada
