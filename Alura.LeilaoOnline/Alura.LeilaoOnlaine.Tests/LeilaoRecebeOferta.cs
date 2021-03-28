@@ -8,6 +8,27 @@ namespace Alura.LeilaoOnlaine.Tests
 {
     public class LeilaoRecebeOferta
     {
+        [Fact]
+        public void NaoAceitaProximoLanceDadoOMesmoClienteRealizouOUltimoLance()
+        {
+
+            //Arranjo - cenário de entrada
+            var leilao = new Leilao("Van Gogh");
+            var fulano = new Interessada("Fulano", leilao);
+
+            leilao.IniciaPregao();
+            leilao.RecebeLance(fulano,800);
+            
+
+            // Act - método sobre teste
+            leilao.RecebeLance(fulano, 1000);
+
+            //Assert resultado esperado
+            var qtEsperada = 1;
+            var qtdObtida = leilao.Lances.Count();
+            Assert.Equal(qtEsperada, qtdObtida);
+        }
+
         [Fact] // Fatos sem depender de valores de entrada
         public void NaoPermiteNovosLancesDadoLeilaoFinalizado()
         {
@@ -25,7 +46,7 @@ namespace Alura.LeilaoOnlaine.Tests
             leilao.RecebeLance(fulano, 1000);
 
             //Assert resultado esperado
-            var valoresperado = 2;
+            var valoresperado = 1;
             var valorObtifo = leilao.Lances.Count();
             Assert.Equal(valoresperado, valorObtifo);
         }
@@ -40,13 +61,25 @@ namespace Alura.LeilaoOnlaine.Tests
             //Arranjo - cenário de entrada
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulano", leilao);
+            var maria = new Interessada("Maria", leilao);
 
             leilao.IniciaPregao();
-            foreach (var valor in ofertas)
-            {
-                leilao.RecebeLance(fulano, valor);
 
+            for (int i = 0; i < ofertas.Length; i++)
+            {
+                var valor = ofertas[i];
+
+                if ((i%2)==0)
+                {
+                    leilao.RecebeLance(fulano, valor);
+                }
+                else
+                {
+                    leilao.RecebeLance(maria, valor);
+                }
             }
+
+            
             leilao.TerminaPregao();
 
             // Act - método sobre teste
