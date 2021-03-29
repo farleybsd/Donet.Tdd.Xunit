@@ -43,13 +43,30 @@ namespace Alura.LeilaoOnlaine.Tests
 
         }
 
+        [Fact]
+        public void LancaInvalidOperationExceptionDadopregaoNaoIniciado()
+        {
+            //Arrange - cenário
+            var leilao = new Leilao("Van Gogh");
+
+            //Assert
+            var excecaoObtida = Assert.Throws<System.InvalidOperationException>(
+                //Act - método sob teste
+                () => leilao.TerminaPregao()
+            );
+
+            var msgEsperada = "Não é possível terminar o pregão sem que ele tenha começado. Para isso, utilize o método IniciaPregao().";
+            Assert.Equal(msgEsperada, excecaoObtida.Message);
+        }
+
+
         [Fact] // Fato sao sempre teste verdades que testa condiçoes e variantes
         public void RetornaZeroDadoLeilaoSemLance()
         {
 
             //Arranjo - cenário de entrada
             var leilao = new Leilao("Van Gogh");
-
+            leilao.IniciaPregao();
             // Act - método sobre teste
             leilao.TerminaPregao();
 
