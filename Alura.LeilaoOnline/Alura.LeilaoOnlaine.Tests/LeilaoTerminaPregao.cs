@@ -5,6 +5,42 @@ namespace Alura.LeilaoOnlaine.Tests
 {
    public class LeilaoTerminaPregao
     {
+        [Theory] //Teoria teste que sao verdades para um tipo particular de dado
+        [InlineData(1200,1250, new double[] { 800, 1150, 1400, 1250 })] // Passando Dado
+        public void RetornaValorSuperiorMaisProximoDadoLeilaoNessaModalidade(
+          double valorDestino,
+          double valoresperado, 
+          double[] ofertas)
+        {
+            //Arranjo - cenário de entrada
+            var leilao = new Leilao("Van Gogh",valorDestino);
+            var fulano = new Interessada("Fulano", leilao);
+            var maria = new Interessada("Maria", leilao);
+
+            leilao.IniciaPregao();
+
+            for (int i = 0; i < ofertas.Length; i++)
+            {
+                var valor = ofertas[i];
+
+                if ((i % 2) == 0)
+                {
+                    leilao.RecebeLance(fulano, valor);
+                }
+                else
+                {
+                    leilao.RecebeLance(maria, valor);
+                }
+            }
+
+            // Act - método sobre teste
+            leilao.TerminaPregao();
+
+            //Assert resultado esperado
+            
+            Assert.Equal(valoresperado, leilao.Ganhador.Valor);
+        }
+
         //NomedoMetodo.CenarioPassado.RespostaEsperada
         [Theory] //Teoria teste que sao verdades para um tipo particular de dado
         [InlineData(1200, new double[] { 800, 900, 1000, 1200 })] // Passando Dado
